@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
     createdProdact: product
   });
 });
-*/
+
 router.get('/:productId', (req, res, next) => {
   const id = req.params.productId;
   if (id === 'special') {
@@ -56,6 +56,25 @@ router.get('/:productId', (req, res, next) => {
     });
   };
 });
+*/
+router.get('/:productId', (req, res, next) => {
+  const id = req.params.productId;
+  Product.findById(id)
+  .exec()
+  .then(doc => {
+    console.log("From Database", doc);
+    res.send(200).json(doc);
+  })
+  .cetch(err => {
+    console.log(err),
+    res.sent(500).json({error: err});
+  });
+
+});
+
+
+
+
 
 router.patch('/:productId', (req, res, next) => {
   res.status(200).json({
